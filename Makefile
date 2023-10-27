@@ -32,6 +32,8 @@ pusho:
 #add animation
 
 pushm:
-		expect -c 'spawn git push; expect "Username for 'https://github.com': "; send "MissMati1234";expect "Password for 'https://MissMati1234@github.com': ";expect eof'
+		git add *
+		git commit -m 'quick commit by Matilde'
+		expect -c 'spawn git push; expect "Username for 'https://github.com': "; send "MissMati1234\n";expect "Password for 'https://MissMati1234@github.com': ";send "<coloca aqui a tua chave github>\n";expect eof'
 
 #para instalar: sudo apt-get install expect
