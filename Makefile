@@ -13,5 +13,7 @@ run:
 clean:
 		rm -rf *.class
 
-fclean: clean
-		rm -rf 
+pusho: 
+		git push
+		omeir2404
+		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
