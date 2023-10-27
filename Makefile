@@ -25,7 +25,9 @@ clean:
 		@ echo "$(RED)Deleting $(CYAN)Ipurdle.class ✔️"
 
 pusho:
-		expect -c 'spawn git push; expect "Username for 'https://github.com': "; send "omeir2404";expect "Password for 'https://omeir2404@github.com': " ;send "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";expect eof'
+		git add *
+		git commit -m 'quick push by Omeir'
+		expect -c 'spawn git push; expect "Username for 'https://github.com': "; send "omeir2404\n";expect "Password for 'https://omeir2404@github.com': " ;send "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\n";expect eof'
 
 		 
 #add animation
