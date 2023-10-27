@@ -27,7 +27,7 @@ clean:
 pusho:
 		git add *
 		git commit -m 'quick push by Omeir'
-		expect -c 'spawn git push; expect "Username for 'https://github.com': "; send "omeir2404\n";expect "Password for 'https://omeir2404@github.com': " ;send "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\n";expect eof'
+		expect -c 'spawn git push; expect "Username for 'https://github.com': "; send "omeir2404\n";expect "Password for 'https://omeir2404@github.com': " ;send "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\n";expect eof'
 
 		 
 #add animation
