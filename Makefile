@@ -21,7 +21,6 @@ run: all
 
 clean:
 		rm -rf *.class
-		@ ${RM} *.o */*.o */*/*.o
 		@ echo "$(RED)Deleting $(CYAN)Ipurdle.class ✔️"
 
 pusho:
