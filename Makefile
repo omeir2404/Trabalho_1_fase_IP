@@ -12,7 +12,7 @@ BLUE		:= \033[1;34m
 CYAN 		:= \033[1;36m
 
 all:
-#		$(COMPILE) $(SRCS)
+		$(COMPILE) $(SRCS)
 		@echo "$(YELLOW)$(COMPILE) ${CLR_RMV}of ${RED} Ipurdle ${CLR_RMV}..."
 		@echo "$(BLUE)Ipurdle created[0m ✔️"
 run: all
@@ -20,7 +20,7 @@ run: all
 	
 
 clean:
-#		rm -rf *.class
+		rm -rf *.class
 		@ ${RM} *.o */*.o */*/*.o
 		@ echo "$(RED)Deleting $(CYAN)Ipurdle.class ✔️"
 
