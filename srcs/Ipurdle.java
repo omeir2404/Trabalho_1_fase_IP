@@ -2,7 +2,8 @@
  * @authors: Omeir Haroon, Matilde Brandão
  */
 public class Ipurdle {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         System.out.println("Boa sorte!");
         System.out.println(ValidClue(123, 3));
         System.out.println(minClue(4));
@@ -52,7 +53,7 @@ public class Ipurdle {
         return true;
     }
 
-    public static int nextClue(int clue, int size) {
+    /*public static int nextClue(int clue, int size) {
         if (isMaxClue(clue, size))
         {
             System.out.println("is Max clue: " + clue);
@@ -64,7 +65,27 @@ public class Ipurdle {
             nextClue++;
         }
     
-        return nextClue;
+        return nextClue;*/
+
+    public static int nextClue(int clue , int size)
+    {
+        if (isMaxClue(clue, size))
+        {
+            System.out.println("is Max clue: " + clue);
+            return -1;
+        }
+        int i =0;
+        boolean carry;
+        do
+            {
+        carry = (n%10)%3==0;
+        
+        if (!carry)
+            return (n+1) * (int)Math.pow(10,i) + minClue(i);
+         n/=10;
+        i++;} while (carry);
+        return -1;
+        
     }
-    
 }
+    
