@@ -1,6 +1,9 @@
 /*
  * @authors: Omeir Haroon, Matilde Brandão
  */
+
+import java.util.Dictionary;
+
 public class Ipurdle {
 	public static void main(String[] args)
 	{
@@ -11,6 +14,7 @@ public class Ipurdle {
 		System.out.println(nextClue(1323, 4));
 		printClue("whats up", 12322323);
 		clueForGuessAndWord("hellao", "hrelpz");
+		testBetterClueForGuess();
 		
 	}
 
@@ -185,15 +189,101 @@ public class Ipurdle {
 	 }
 	*/
 	public static int howManyWordsWithClue(DictionaryIP dictionary, int clue, String guess)
-{
-    int count = 0;
-    for(int i = 0; i < dictionary.lenght(); i++)
-    {
-        if (clueForGuessAndWord(guess, dictionary.getWord(i)) == clue)
-            count++;
-    }
-    System.out.println("count: " + count);
-    return count;
-}
+	{
+		int count = 0;
+		for(int i = 0; i < dictionary.lenght(); i++)
+		{
+			if (clueForGuessAndWord(guess, dictionary.getWord(i)) == clue)
+				count++;
+		}
+		System.out.println("count: " + count);
+		return count;
+	}
 
+
+	/**
+	 * @param {@code dictionary}
+	 * @param {@code guess}~
+	 * @requires {@code dictionary != NULL}
+	 * @requires {@code guess} has the correct length
+	 */
+	
+	public static int betterClueForGuess(DictionaryIP dictionary, String guess)
+	{
+		int bestClue = -1;
+		int bestCount = -1;
+		int clue = minClue(guess.length());
+		int count = 0;
+
+		while (!isMaxClue(clue, Integer.toString(clue).length()))
+		{
+			count = howManyWordsWithClue(dictionary, clue, guess);
+			if (count > bestCount)
+			{
+				bestCount = count;
+				bestClue = clue;
+			}
+			clue = nextClue(clue, guess.length());
+		}
+		return bestClue;
+	}
+
+
+
+
+	private static void testBetterClueForGuess() {
+		System.out.println ("Testing betterClueForGuess ():");
+		boolean error = false;
+
+		String guess = "TERNS";						 		
+		String[] words = 										// clue
+			{"CIGAR", "DWARF", "MAJOR", "RUDDY",				// 11211
+					"REBUT", "REACT", "RETCH", 			 		// 23211
+					"SISSY", "BLUSH", "BASIC",			 		// 11112
+					"HUMPH","FOCAL","CLUCK","CLOCK","CLICK",	// 11111
+					"TERNS"};							 		// 33333
+		DictionaryIP dictionary = new DictionaryIP (5, words);
+
+		int expectedNum = 11111;
+		int obtainedNum = Ipurdle.betterClueForGuess (dictionary, guess);
+		if (obtainedNum != expectedNum) {
+			System.out.printf (">>> failed on dictionary1 %n");
+			System.out.printf (">>> expected: %d obtained: %d %n", expectedNum, obtainedNum);
+			error = true;
+		}
+
+		String[] words2 = 										// clue
+			{"CIGAR", "DWARF", "MAJOR", "RUDDY",				// 11211
+					"REBUT", "REACT", "RETCH", 			 		// 23211
+					"SISSY", "BLUSH",					 		// 11112
+					"HUMPH","FOCAL",							// 11111
+					"TERNS"};							 		// 33333
+		dictionary = new DictionaryIP (5, words2);
+
+		expectedNum = 11211;
+		obtainedNum = Ipurdle.betterClueForGuess (dictionary, guess);
+		if (obtainedNum != expectedNum) {
+			System.out.printf (">>> failed on dictionary2 %n");
+			System.out.printf (">>> expected: %d obtained: %d %n", expectedNum, obtainedNum);
+			error = true;
+		}
+		
+		String[] words3 = 										// clue
+			{"CIGAR", "DWARF", 									// 11211
+					"REBUT", "REACT", 					 		// 23211
+					"SISSY", "BLUSH",					 		// 11112
+					"HUMPH","FOCAL",							// 11111
+					"TERNS"};							 		// 33333
+		dictionary = new DictionaryIP (5, words3);
+
+		expectedNum = 11111;
+		obtainedNum = Ipurdle.betterClueForGuess (dictionary, guess);
+		if (obtainedNum != expectedNum) {
+			System.out.printf (">>> failed on dictionary2 %n");
+			System.out.printf (">>> expected: %d obtained: %d %n", expectedNum, obtainedNum);
+			error = true;
+		}
+
+		System.out.println (error ? "FAIL" : "PASS");	
+	}
 }
