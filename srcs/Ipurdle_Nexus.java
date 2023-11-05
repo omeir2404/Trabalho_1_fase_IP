@@ -2,29 +2,22 @@
  * @authors: Omeir Haroon, Matilde Brandão
  */
 
-import java.util.Arrays;
-import java.util.Dictionary;
-import java.lang.Math;
+import java.util.Scanner;
 
 public class Ipurdle_Nexus {
-	// public static void main(String[] args)
-	// {
-	// 	System.out.println("Boa sorte!");
-	// 	// System.out.println(validClue(12, 3));
-    //     // nextClue(123, 3);
-        
-    //     testPlayGuess();
-
-
-	// 	// System.out.println(minClue(4));
-	// 	// System.out.println(isMaxClue(333, 3));
-	// 	// System.out.println(nextClue(1323, 4));
-	// 	// printClue("whats up", 12322323);
-	// 	// clueForGuessAndWord("hellao", "hrelpz");
-	// 	// testBetterClueForGuess();
-		
-	// }
-
+	public static void main(String[] args)
+	{
+        int maxAttempts = 6;
+		System.out.println("Bem vindo ao jogo Ipurdle!\nNeste jogo as palavras têm tamanho 5. O dicionário tem apenas palavras em inglês relacionadas com IP.\nTens 6 tentavias para advinhar a palavra. Boa sorte!");
+        DictionaryIP gameWordsDictionary = new DictionaryIP(5);
+        DictionaryIP puzzlesDictionary;
+        for (int i = 0; i <= maxAttempts; i++)
+        {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Palavra a jogar: ");
+            String word = input.nextLine();
+        }
+	}
 
 	/**
 	 * 
@@ -47,33 +40,14 @@ public class Ipurdle_Nexus {
 			for (int i = 0; i < size; i++){
 				if (clue %  10 == 1 || clue % 10 == 2 || clue % 10 == 3 )
 					clue /= 10; 
-				else
+				elseapoio/IpurdleTest.java
 					return false;
-
 			}
-
 			return true;
 		}
-
 		return false;
 	}
 
-
-    // 	 /* 
-    // 	public static boolean ValidClue(int clue, int size) {
-    // 		String clueString = String.valueOf(clue); 
-    // 		if (clueString.length() != size) {
-    // 			return false;
-    // 		}
-    // 		for (int i = 0; i < clueString.length(); i++) {
-    // 			char digit = clueString.charAt(i);
-    // 			if (digit != '1' && digit != '2' && digit != '3') {
-    // 				return false;
-    // 			}
-    // 		}
-    // 		return true;
-    // 	}
-    //
 	/**
 	 * @param size
 	 * @requires {@code size > 0}
@@ -89,16 +63,6 @@ public class Ipurdle_Nexus {
 		}
 		return minClue;
 	}
-
-
-
-    // 	public static int minClue(int size) {
-    // 		String clue = "";
-    // 		for (int i = 0; i < size; i++) {
-    // 			clue += "1";
-    // 		}
-    // 		return Integer.parseInt(clue);
-    // 	}
 
     /**
      * 
@@ -119,34 +83,6 @@ public class Ipurdle_Nexus {
         }
         return true;
     }
-
-
-	// public static boolean isMaxClue(int clue, int size) {
-	// 	String clueString = String.valueOf(clue);
-	// 	if (!ValidClue(clue, size))
-	// 		return false;
-
-	// 	for (int i = 0; i < clueString.length(); i++) {
-	// 		char digit = clueString.charAt(i);
-	// 		if (digit != '3') {
-	// 			return false;
-	// 		}
-	// 	}
-	// 	System.out.println("is Max clue: " + clueString);
-	// 	return true;
-	// }
-
-	// public static int nextClue(int clue, int size) {
-
-	// 	int nextClue = clue + 1;
-	// 	System.out.println("next clue start: " + nextClue + "clue start: " + clue);
-	// 	while (!validClue(nextClue, size)) {
-	// 		nextClue++;
-	// 	}
-	
-	// 	return nextClue;
-
-    // }
 
 	/**
 	 * size é um número maior que zero, clue representa uma pista para palavras de tamanho size 
@@ -246,22 +182,6 @@ public class Ipurdle_Nexus {
 	 * print the number of words in {@code dictionary} that have {@code clue} as a clue
 	 * @return the number of words in {@code dictionary} that have {@code clue} as a clue
 	 */
-	/*	 
-	 * 
-	 public static int howManyWordsWithClue(DictionaryIP dictionary, int clue, String guess)
-	 {
-		 int count = 0;
-		 int i = 0;
-		 while(dictionary.getWord(i) != null)
-		 {
-			 if (clueForGuessAndWord(guess, dictionary.getWord(i)) == clue)
-				 count++;
-			 i++;
-		 }
-		 System.out.println("count: " + count);
-		 return count;
-	 }
-	*/
 	public static int howManyWordsWithClue(DictionaryIP dictionary, int clue, String guess)
 	{
 		int count = 0;
@@ -280,7 +200,6 @@ public class Ipurdle_Nexus {
 	 * @requires {@code dictionary != NULL}
 	 * @requires {@code guess} has the correct length
 	 */
-	
 	public static int betterClueForGuess(DictionaryIP dictionary, String guess)
 	{
 		int bestClue = -1;
