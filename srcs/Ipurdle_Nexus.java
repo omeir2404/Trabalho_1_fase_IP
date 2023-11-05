@@ -2,22 +2,36 @@
  * @authors: Omeir Haroon, Matilde Brandão
  */
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Ipurdle_Nexus {
-	public static void main(String[] args)
-	{
+    public static void main(String[] args)
+    {
         int maxAttempts = 6;
-		System.out.println("Bem vindo ao jogo Ipurdle!\nNeste jogo as palavras têm tamanho 5. O dicionário tem apenas palavras em inglês relacionadas com IP.\nTens 6 tentavias para advinhar a palavra. Boa sorte!");
+        System.out.println("Bem vindo ao jogo Ipurdle!\nNeste jogo as palavras têm tamanho 5. O dicionário tem apenas palavras em inglês relacionadas com IP.\nTens 6 tentavias para advinhar a palavra. Boa sorte!");
         DictionaryIP gameWordsDictionary = new DictionaryIP(5);
-        DictionaryIP puzzlesDictionary;
+        DictionaryIP puzzlesDictionary = new DictionaryIP(5);
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(puzzlesDictionary.lenght());
+        String word = puzzlesDictionary.getWord(randomIndex);
         for (int i = 0; i <= maxAttempts; i++)
         {
             Scanner input = new Scanner(System.in);
-            System.out.println("Palavra a jogar: ");
-            String word = input.nextLine();
-        }
-	}
+            System.out.print("Palavra a jogar: ");
+            String guess = input.nextLine();
+
+			int clue = betterClueForGuess(puzzlesDictionary, guess);
+			if (clue == 0) {
+              	System.out.println("Invalid word. Please try again.");
+			}
+			else {
+				System.out.print("Palavra com a pista: ");
+				printClue(guess, clue);
+				playGuess(puzzlesDictionary, guess);
+			}
+    	}
+   	}
 
 	/**
 	 * 
@@ -40,7 +54,7 @@ public class Ipurdle_Nexus {
 			for (int i = 0; i < size; i++){
 				if (clue %  10 == 1 || clue % 10 == 2 || clue % 10 == 3 )
 					clue /= 10; 
-				elseapoio/IpurdleTest.java
+				else
 					return false;
 			}
 			return true;
@@ -123,7 +137,6 @@ public class Ipurdle_Nexus {
 		{
 			int totalDigits = (int)Math.log10(clue) + 1;
 			int digit = (int)(clue / Math.pow(10, totalDigits - i - 1)) % 10;
-			System.out.println("digit: " + digit + " | i: " + i);
 			if (digit == 1)
 			{
 				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.RED));
