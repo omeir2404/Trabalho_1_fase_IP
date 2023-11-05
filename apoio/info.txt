@@ -1,0 +1,142 @@
+
+	//toColoredString(String s, String color)
+//String s = toColoredString ("hello", StringColouring.YELLOW);
+
+/* 
+
+Constructor Summary
+Constructors
+Constructor
+Description
+DictionaryIP(int size)
+Builds a dictionary with words of length size choosen by IP2324 teaching staff.
+Method Summary
+
+    Modifier and Type
+    Method
+    Description
+    boolean
+    equals(Object obj)
+    Compares this dictionary to the specified object.
+    String
+    getWord(int i)
+    Gets the ith word in this dictionary.
+    int
+    getWordSize()
+    The size of the words in this dictionary.
+    int
+    hashCode()
+    The hash code of this dictionary.
+    boolean
+    isValid(String word)
+    Checks if a word is valid, i.e., is in this dictionary.
+    int
+    lenght()
+    The number of words in this dictionary.
+    void
+    remove(String word)
+    Removes a word from the dictionary.
+    void
+    removeSelected()
+    All selected words are removed from the dictionary.
+    void
+    selectForRemove(int i)
+    The ith word is selected for removal from the dictionary.
+    String
+    toString()
+    Returns a string representation of this dictionary.
+    Methods inherited from class java.lang.Object
+    clone, finalize, getClass, notify, notifyAll, wait, wait, wait
+
+    Constructor Details
+        DictionaryIP
+        public DictionaryIP(int size)
+        Builds a dictionary with words of length size choosen by IP2324 teaching staff. No word is selected for removal.
+
+        Parameters:
+            size - The size of the words in this dictionary
+
+    Method Details
+        lenght
+        public int lenght()
+        The number of words in this dictionary.
+
+        Returns:
+            The number of words in this dictionary
+
+        getWordSize
+        public int getWordSize()
+        The size of the words in this dictionary.
+
+        Returns:
+            The size of the words in this dictionary.
+
+        isValid
+        public boolean isValid(String word)
+        Checks if a word is valid, i.e., is in this dictionary.
+
+        Parameters:
+            word - The word to check.
+        Returns:
+            If Dictionary is in the dictionary.
+        Ensures
+            \result ==> word.length () == getWordSize ()
+
+        getWord
+        public String getWord(int i)
+        Gets the ith word in this dictionary.
+
+        Parameters:
+            i - The order number.
+        Returns:
+            The ith word in this dictionary
+        Requires
+            0 <= i < lenght()
+
+        remove
+        public void remove(String word)
+        Removes a word from the dictionary.
+
+        Parameters:
+            word - The word to invalidate
+        Ensures
+            !isValid (word) 
+
+        selectForRemove
+        public void selectForRemove(int i)
+        The ith word is selected for removal from the dictionary.
+
+        Parameters:
+            word - The index of the word to select.
+        Requires
+            0 <= i < lenght()
+
+        removeSelected
+        public void removeSelected()
+        All selected words are removed from the dictionary.
+
+        Ensures
+            No word is selected for removal.
+
+        hashCode
+        public int hashCode()
+        Returns a hash code for this dictionary.
+
+        Overrides:
+            hashCode in class Object
+
+        equals
+        public boolean equals(Object obj)
+        Compares this dictionary to the specified object.
+
+        Overrides:
+            equals in class Object
+
+        toString
+        public String toString()
+        Returns a string representation of this dictionary.
+
+        Overrides:
+            toString in class Object
+
+*/
