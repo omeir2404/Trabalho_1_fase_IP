@@ -2,32 +2,61 @@
  * @authors: Omeir Haroon, Matilde Brandão
  */
 
-import java.util.Random;
 import java.util.Scanner;
 
-public class Ipurdle_Nexus {
+public class Ipurdle_Nexus
+{
+	public static void SHOWDICT(DictionaryIP dictionary)
+	{
+		System.out.println();
+		for (int i = 0; i < dictionary.lenght(); i++)
+			System.out.println(dictionary.getWord(i));
+	}
     public static void main(String[] args)
     {
-        int maxAttempts = 6;
-        System.out.println("Bem vindo ao jogo Ipurdle!\nNeste jogo as palavras têm tamanho 5. O dicionário tem apenas palavras em inglês relacionadas com IP.\nTens 6 tentavias para advinhar a palavra. Boa sorte!");
-        DictionaryIP gameWordsDictionary = new DictionaryIP(5);
-        DictionaryIP puzzlesDictionary = new DictionaryIP(5);
+		Scanner input = new Scanner(System.in);
+		System.out.println("Bem vindo ao jogo Ipurdle!");
+		System.out.print("Numero Máximo de tentativas: ");		
+		int maxAttempts = input.nextInt();
+		if (!(maxAttempts > 0))
+			maxAttempts = 6;
+		System.out.print("Tamanho das palavras: ");		
+		int size = input.nextInt();
+		if (!(size > 0))
+			size = 5;
+		System.out.println("Neste jogo as palavras têm tamanho "  + size +". O dicionário tem apenas palavras em inglês relacionadas com IP.");
+		System.out.println("Tens "+ maxAttempts + " tentavias para advinhar a palavra. Boa sorte!");
+        DictionaryIP gameWordsDictionary = new DictionaryIP(size);
+        DictionaryIP puzzlesDictionary = new DictionaryIP(size);
         for (int i = 0; i <= maxAttempts; i++)
         {
-            Scanner input = new Scanner(System.in);
-            System.out.print("Palavra a jogar: ");
+			SHOWDICT(puzzlesDictionary);// para retirar!!
+            System.out.print("Palavra a jogar? ");
             String guess = input.nextLine();
-            playGuess(puzzles.Dictionary, guess);
-			int clue = playGuess(puzzlesDictionary, guess);
-			if(!validClue(clue, 5) ) {
-              	System.out.println("Invalid word. Please try again.");
+            if (guess.length() == size)
+			{
+				// playGuess(puzzlesDictionary, guess);
+				if (!gameWordsDictionary.isValid(guess))
+					System.out.println("Palavra Invalida. Nao existe no dicionario.");
+				else
+				{
+					int clue = playGuess(puzzlesDictionary, guess);
+					System.out.println("Palavra com a pista > ");
+					printClue(guess, clue);
+					System.out.println(clue );
+					if (isMaxClue(clue, size))
+					{
+						System.out.println("Parabens, encontraste a palavra secreta!");
+					}
+				}
 			}
-			else {
-				System.out.print("Palavra com a pista: ");
-				printClue(guess, clue);
+			else
+			{
+				System.out.println("Palavra Invalida. Tamanho errado.");
+				System.out.println("guess: " + guess);
 			}
-    	}
-   	}
+		}
+    }
 
 	/**
 	 * 
@@ -38,7 +67,8 @@ public class Ipurdle_Nexus {
 	 * Vai verificar se a pista é válida
 	 * @return boolean 
 	 */
-	public static boolean validClue (int clue, int size) {
+	public static boolean validClue (int clue, int size)
+	{
 		int count = 1;
 		int clueHolder = clue;
 		while((clue / 10) > 0) {
@@ -226,6 +256,8 @@ public class Ipurdle_Nexus {
 			}
 			clue = nextClue(clue, guess.length());
 		}
+		if (dictionary.lenght() == 1 && dictionary.isValid(guess))
+			return (3 * minClue(guess.length()));
 		return bestClue;
 	}
 
