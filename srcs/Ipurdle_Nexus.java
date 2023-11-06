@@ -12,23 +12,19 @@ public class Ipurdle_Nexus {
         System.out.println("Bem vindo ao jogo Ipurdle!\nNeste jogo as palavras têm tamanho 5. O dicionário tem apenas palavras em inglês relacionadas com IP.\nTens 6 tentavias para advinhar a palavra. Boa sorte!");
         DictionaryIP gameWordsDictionary = new DictionaryIP(5);
         DictionaryIP puzzlesDictionary = new DictionaryIP(5);
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(puzzlesDictionary.lenght());
-        String word = puzzlesDictionary.getWord(randomIndex);
         for (int i = 0; i <= maxAttempts; i++)
         {
             Scanner input = new Scanner(System.in);
             System.out.print("Palavra a jogar: ");
             String guess = input.nextLine();
-
-			int clue = betterClueForGuess(puzzlesDictionary, guess);
-			if (clue == 0) {
+            playGuess(puzzles.Dictionary, guess);
+			int clue = playGuess(puzzlesDictionary, guess);
+			if(!validClue(clue, 5) ) {
               	System.out.println("Invalid word. Please try again.");
 			}
 			else {
 				System.out.print("Palavra com a pista: ");
 				printClue(guess, clue);
-				playGuess(puzzlesDictionary, guess);
 			}
     	}
    	}
