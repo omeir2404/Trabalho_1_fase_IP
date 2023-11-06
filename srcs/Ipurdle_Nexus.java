@@ -26,16 +26,17 @@ public class Ipurdle_Nexus
 			size = 5;
 		System.out.println("Neste jogo as palavras têm tamanho "  + size +". O dicionário tem apenas palavras em inglês relacionadas com IP.");
 		System.out.println("Tens "+ maxAttempts + " tentavias para advinhar a palavra. Boa sorte!");
-        DictionaryIP gameWordsDictionary = new DictionaryIP(size);
+        
+		DictionaryIP gameWordsDictionary = new DictionaryIP(size);
         DictionaryIP puzzlesDictionary = new DictionaryIP(size);
-        for (int i = 0; i <= maxAttempts; i++)
+		Scanner guessInput = new Scanner(System.in);
+        for (int i = 1; i <= maxAttempts; i++)
         {
 			SHOWDICT(puzzlesDictionary);// para retirar!!
             System.out.print("Palavra a jogar? ");
-            String guess = input.nextLine();
+            String guess = guessInput.nextLine();
             if (guess.length() == size)
 			{
-				// playGuess(puzzlesDictionary, guess);
 				if (!gameWordsDictionary.isValid(guess))
 					System.out.println("Palavra Invalida. Nao existe no dicionario.");
 				else
@@ -51,11 +52,10 @@ public class Ipurdle_Nexus
 				}
 			}
 			else
-			{
 				System.out.println("Palavra Invalida. Tamanho errado.");
-				System.out.println("guess: " + guess);
-			}
 		}
+		input.close();
+		guessInput.close();
     }
 
 	/**
