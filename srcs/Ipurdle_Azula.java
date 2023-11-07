@@ -9,7 +9,7 @@ public class Ipurdle_Azula {
 	public static void main(String[] args)
 	{
 		System.out.println("Boa sorte!");
-		// testNextClue();
+		
 		printClue("HELLO", 32131);
 	}
 
@@ -118,20 +118,38 @@ public class Ipurdle_Azula {
 		que na pista têm 3, a amarelo as letras que na pista têm 2 e a preto as letras que na pista têm 1.
 	 * @return
 	 */
-	 public static void printClue (String guess, int clue) {
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < guess.length(); i++){
-			if(Character.getNumericValue(Integer.toString(clue).charAt(i)) == 3){
-				sb.append(StringColouring.toColoredString((Character.toString(guess.charAt(i))), StringColouring.GREEN));
+	public static void printClue(String guess, int clue) {
+		int clueLength = Integer.toString(clue).length();
+		StringBuilder colouredGuess = new StringBuilder();
+		for(int i = 0; i < clueLength; i++) {
+
+			int totalDigits = (int)Math.log10(clue);
+			int digit = (int)(clue / Math.pow(10, totalDigits - i)) % 10;
+			if (digit == 1)
+			{
+				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.RED));
 			}
-			if(Character.getNumericValue(Integer.toString(clue).charAt(i)) == 2){
-				sb.append(StringColouring.toColoredString((Character.toString(guess.charAt(i))), StringColouring.YELLOW));
+			if (digit == 2)
+			{
+				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.YELLOW));
 			}
-			if(Character.getNumericValue(Integer.toString(clue).charAt(i)) == 1){
-				sb.append(StringColouring.toColoredString((Character.toString(guess.charAt(i))), StringColouring.RED));
+			if (digit == 3)
+			{
+				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.GREEN));
 			}
 		}
-		System.out.println(sb);
-		return ;
+		System.out.println(colouredGuess);
 	}
+
+	/**
+	 * @param guess
+	 * @param word
+	 * @requires {@code guess} e {word têm o mesmo tamanho
+	 * 
+	 * @return
+	 */
+	public static int clueForGuessAndWord(String guess, String word) {
+
+	}
+
 }
