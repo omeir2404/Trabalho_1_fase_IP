@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 public class Ipurdle_Nexus
 {
+	/**
+	 * @param dictionary
+	 * @requires {@code dictionary != NULL}
+	 * 
+	 */
 	public static void SHOWDICT(DictionaryIP dictionary)
 	{
 		System.out.println();
@@ -129,12 +134,11 @@ public class Ipurdle_Nexus
 	 */
 	public static void printClue(String guess, int clue)
 	{
-		int clueLength = Integer.toString(clue).length();
 		StringBuilder colouredGuess = new StringBuilder();
-		for(int i = 0; i < clueLength; i++)
+		for(int i = 0; i < guess.length(); i++)
 		{
-			int totalDigits = (int)Math.log10(clue) + 1;
-			int digit = (int)(clue / Math.pow(10, totalDigits - i - 1)) % 10;
+			int totalDigits = (int)Math.log10(clue);
+			int digit = (int)(clue / Math.pow(10, totalDigits - i)) % 10;
 			if (digit == 1)
 			{
 				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.RED));
@@ -166,14 +170,15 @@ public class Ipurdle_Nexus
 			else if (word.contains(String.valueOf(guess.charAt(i))))
 			{
 				boolean found = false;
-				for(int j = 0; j < i; j++)
+				int j = 0;
+				while(j < i && !found)
 				{
 					if (guess.charAt(j) == guess.charAt(i) && guess.charAt(j) != word.charAt(j))
 					{
 						clue += Math.pow(10, guess.length() - i - 1) * 1;
 						found = true;
-						break;
 					}
+					j++;
 				}
 				if (!found)
 					clue += Math.pow(10, guess.length() - i - 1) * 2;
@@ -245,7 +250,6 @@ public class Ipurdle_Nexus
 
 	public static void main(String[] args)
     {
-		Scanner input = new Scanner(System.in);
 		System.out.println("Bem vindo ao jogo Ipurdle!");
 		System.out.print("letras que não estão na palavra ");
 		printClue("red", 111);
@@ -253,30 +257,28 @@ public class Ipurdle_Nexus
 		printClue("yellow", 222222);
 		System.out.print("letras no sitio certo ");
 		printClue("green", 33333);
-		System.out.print("Até deixo te escolher o numero Máximo de tentativas(-1 se qrs o default): ");		
-		int maxAttempts = input.nextInt();
-		if (!(maxAttempts > 0))
+		int maxAttempts = 6;
+		int size;
+		if (args[0] == null)
 		{
-			System.out.println("Não queres??, pronto vai ser atribuido o valor 6.");
-			maxAttempts = 6;
-		}
-		System.out.print("E tambem tamanho das palavras(-1 se qrs o default): ");		
-		int size = input.nextInt();
-		if (!(size > 0))
-		{
-			System.out.println("Não queres??, pronto vai ser atribuido o valor 5.");
 			size = 5;
 		}
+		else
+			size = Integer.parseInt(args[0]);
+		// if (args[1] != null)
+		// maxAttempts = Integer.parseInt(args[1]);
+			
 		System.out.println("Neste jogo as palavras têm tamanho "  + size +". O dicionário tem apenas palavras em inglês relacionadas com IP.");
 		System.out.println("Tens "+ maxAttempts + " tentavias para advinhar a palavra. Boa sorte!");
 		DictionaryIP gameWordsDictionary = new DictionaryIP(size);
         DictionaryIP puzzlesDictionary = new DictionaryIP(size);
 		Scanner guessInput = new Scanner(System.in);
+		SHOWDICT(puzzlesDictionary);// para retirar!!|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         for (int i = 1; i <= maxAttempts; i++)
         {
-			SHOWDICT(puzzlesDictionary);// para retirar!!
             System.out.print("Palavra a jogar? ");
             String guess = guessInput.nextLine();
+			guess = guess.toUpperCase();
             if (guess.length() == size)
 			{
 				if (!gameWordsDictionary.isValid(guess))
@@ -284,9 +286,8 @@ public class Ipurdle_Nexus
 				else
 				{
 					int clue = playGuess(puzzlesDictionary, guess);
-					System.out.println("Palavra com a pista > ");
+					System.out.print("Palavra com a pista > ");
 					printClue(guess, clue);
-					System.out.println(clue );
 					if (isMaxClue(clue, size))
 					{
 						System.out.println("Parabens, encontraste a palavra secreta!");
@@ -297,7 +298,6 @@ public class Ipurdle_Nexus
 			else
 				System.out.println("Palavra Invalida. Tamanho errado.");
 		}
-		input.close();
 		guessInput.close();
     }
 }
