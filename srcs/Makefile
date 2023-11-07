@@ -34,7 +34,7 @@ cazula:
 nexus: cnexus
 	@java Ipurdle_Nexus
 
-azula: caszula
+azula: cazula
 	@java Ipurdle_Azula
 	
 

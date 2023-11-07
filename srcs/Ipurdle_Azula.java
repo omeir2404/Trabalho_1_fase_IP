@@ -9,6 +9,8 @@ public class Ipurdle_Azula {
 	public static void main(String[] args)
 	{
 		System.out.println("Boa sorte!");
+		// testNextClue();
+		printClue("HELLO", 32131);
 	}
 
 	/**
@@ -53,12 +55,11 @@ public class Ipurdle_Azula {
 	 */
 	public static int minClue(int size) {
 		int minClue = 1;
-		System.out.println("antes " + minClue);
-
+	
 		for(int i = 1; i < size; i++){
 			minClue *= 10 ;
 			minClue++;
-			System.out.println("after " + minClue);
+
 		}
 		return minClue;
 	}
@@ -90,7 +91,7 @@ public class Ipurdle_Azula {
 	 * @requires {@code size > 0}
 	 * @return
 	 */
-	public static int nextClue( int clue, int size) {
+	public static int nextClue(int clue, int size) {
 		if( clue % 10 == 1 || clue % 10 == 2) {
 			clue++;
 			return clue;
@@ -102,11 +103,35 @@ public class Ipurdle_Azula {
 			clue /= 10;
 
 			}
-			
+			return((clue + 1)*(int)Math.pow(10,counter)+minClue(counter));
 			
 		}
 
+	}
 
-
+	/**
+	 * @param guess
+	 * @requieres != 0
+	 * @param clue
+	 * @requieres número inteiro clue que se assume representar uma pista para guess
+	 *  imprime guess com as suas letras coloridas de acordo com a clue. Devem ser coloridas a verde as letras 
+		que na pista têm 3, a amarelo as letras que na pista têm 2 e a preto as letras que na pista têm 1.
+	 * @return
+	 */
+	 public static void printClue (String guess, int clue) {
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < guess.length(); i++){
+			if(Character.getNumericValue(Integer.toString(clue).charAt(i)) == 3){
+				sb.append(StringColouring.toColoredString((Character.toString(guess.charAt(i))), StringColouring.GREEN));
+			}
+			if(Character.getNumericValue(Integer.toString(clue).charAt(i)) == 2){
+				sb.append(StringColouring.toColoredString((Character.toString(guess.charAt(i))), StringColouring.YELLOW));
+			}
+			if(Character.getNumericValue(Integer.toString(clue).charAt(i)) == 1){
+				sb.append(StringColouring.toColoredString((Character.toString(guess.charAt(i))), StringColouring.RED));
+			}
+		}
+		System.out.println(sb);
+		return ;
 	}
 }
