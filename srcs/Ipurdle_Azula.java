@@ -82,4 +82,31 @@ public class Ipurdle_Azula {
 		}
 		return true;
 }
+
+	/**
+	 * @param clue
+	 * @requires representa uma pista para palavras de tamanho size e clue não é a maior pista para palavras de tamanho size
+	 * @param size
+	 * @requires {@code size > 0}
+	 * @return
+	 */
+	public static int nextClue( int clue, int size) {
+		if( clue % 10 == 1 || clue % 10 == 2) {
+			clue++;
+			return clue;
+		}
+		else {
+			int counter = 0;
+			while(clue % 10 == 3){
+			counter++;
+			clue /= 10;
+
+			}
+			
+			
+		}
+
+
+
+	}
 }
