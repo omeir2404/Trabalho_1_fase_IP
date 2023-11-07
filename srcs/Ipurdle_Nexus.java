@@ -258,15 +258,12 @@ public class Ipurdle_Nexus
 		System.out.print("letras no sitio certo ");
 		printClue("green", 33333);
 		int maxAttempts = 6;
-		int size;
-		if (args[0] == null)
-		{
-			size = 5;
-		}
-		else
+		int size = 5;
+		if (args.length > 0)
 			size = Integer.parseInt(args[0]);
-		// if (args[1] != null)
-		// maxAttempts = Integer.parseInt(args[1]);
+		if (args.length > 1)
+			maxAttempts = Integer.parseInt(args[1]);
+
 			
 		System.out.println("Neste jogo as palavras têm tamanho "  + size +". O dicionário tem apenas palavras em inglês relacionadas com IP.");
 		System.out.println("Tens "+ maxAttempts + " tentavias para advinhar a palavra. Boa sorte!");
