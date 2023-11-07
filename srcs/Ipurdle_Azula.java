@@ -9,6 +9,8 @@ public class Ipurdle_Azula {
 	public static void main(String[] args)
 	{
 		System.out.println("Boa sorte!");
+		
+		printClue("HELLO", 32131);
 	}
 
 	/**
@@ -53,12 +55,11 @@ public class Ipurdle_Azula {
 	 */
 	public static int minClue(int size) {
 		int minClue = 1;
-		System.out.println("antes " + minClue);
-
+	
 		for(int i = 1; i < size; i++){
 			minClue *= 10 ;
 			minClue++;
-			System.out.println("after " + minClue);
+
 		}
 		return minClue;
 	}
@@ -82,4 +83,73 @@ public class Ipurdle_Azula {
 		}
 		return true;
 }
+
+	/**
+	 * @param clue
+	 * @requires representa uma pista para palavras de tamanho size e clue não é a maior pista para palavras de tamanho size
+	 * @param size
+	 * @requires {@code size > 0}
+	 * @return
+	 */
+	public static int nextClue(int clue, int size) {
+		if( clue % 10 == 1 || clue % 10 == 2) {
+			clue++;
+			return clue;
+		}
+		else {
+			int counter = 0;
+			while(clue % 10 == 3){
+			counter++;
+			clue /= 10;
+
+			}
+			return((clue + 1)*(int)Math.pow(10,counter)+minClue(counter));
+			
+		}
+
+	}
+
+	/**
+	 * @param guess
+	 * @requieres != 0
+	 * @param clue
+	 * @requieres número inteiro clue que se assume representar uma pista para guess
+	 *  imprime guess com as suas letras coloridas de acordo com a clue. Devem ser coloridas a verde as letras 
+		que na pista têm 3, a amarelo as letras que na pista têm 2 e a preto as letras que na pista têm 1.
+	 * @return
+	 */
+	public static void printClue(String guess, int clue) {
+		int clueLength = Integer.toString(clue).length();
+		StringBuilder colouredGuess = new StringBuilder();
+		for(int i = 0; i < clueLength; i++) {
+
+			int totalDigits = (int)Math.log10(clue);
+			int digit = (int)(clue / Math.pow(10, totalDigits - i)) % 10;
+			if (digit == 1)
+			{
+				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.RED));
+			}
+			if (digit == 2)
+			{
+				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.YELLOW));
+			}
+			if (digit == 3)
+			{
+				colouredGuess.append(StringColouring.toColoredString(String.valueOf(guess.charAt(i)), StringColouring.GREEN));
+			}
+		}
+		System.out.println(colouredGuess);
+	}
+
+	/**
+	 * @param guess
+	 * @param word
+	 * @requires {@code guess} e {word têm o mesmo tamanho
+	 * 
+	 * @return
+	 */
+	public static int clueForGuessAndWord(String guess, String word) {
+
+	}
+
 }
