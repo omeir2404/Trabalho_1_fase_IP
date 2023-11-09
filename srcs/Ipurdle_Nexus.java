@@ -149,30 +149,28 @@ public class Ipurdle_Nexus
 	public static int clueForGuessAndWord(String guess, String word)
 	{
 		int clue = 0;
-		for(int i = 0; i < guess.length(); i++)
+		for(int count = 0; count < guess.length(); count++)
 		{
-			if (guess.charAt(i) == word.charAt(i))
-			{
-				clue += Math.pow(10, guess.length() - i - 1) * 3;
-			}
-			else if (word.contains(String.valueOf(guess.charAt(i))))
+			if (guess.charAt(count) == word.charAt(count))
+				clue = (clue * 10) + 3;
+			else if (word.contains(String.valueOf(guess.charAt(count))))
 			{
 				boolean found = false;
-				int j = 0;
-				while(j < i && !found)
+				int whileCount = 0;
+				while(whileCount < count && !found)
 				{
-					if (guess.charAt(j) == guess.charAt(i) && guess.charAt(j) != word.charAt(j))
+					if (guess.charAt(whileCount) == guess.charAt(count) && guess.charAt(whileCount) != word.charAt(whileCount))//se encontraste uma letra igual nao no sition certo
 					{
-						clue += Math.pow(10, guess.length() - i - 1) * 1;
+						clue = (clue * 10) + 1;
 						found = true;
 					}
-					j++;
+					whileCount++;
 				}
 				if (!found)
-					clue += Math.pow(10, guess.length() - i - 1) * 2;
+					clue = (clue * 10) + 2;
 			}
 			else
-				clue += Math.pow(10,  guess.length() - i - 1) * 1;
+				clue = (clue * 10) + 1;
 		}
 		return (clue);
 	}
