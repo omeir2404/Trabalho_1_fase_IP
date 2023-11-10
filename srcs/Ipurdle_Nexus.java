@@ -64,13 +64,7 @@ public class Ipurdle_Nexus
 	 * @return int
 	 */
 	public static int maxClue(int size) {
-		int minClue = 3;
-
-		for(int i = 1; i < size; i++){
-			minClue *= 10 ;
-			minClue += 3;
-		}
-		return minClue;
+		return (minClue(size) * 3);
 	}
 
     /**
@@ -82,15 +76,7 @@ public class Ipurdle_Nexus
      * @return boolean
      */
     public static boolean isMaxClue(int clue, int size) {
-        for(int i = 0; i < size; i++){
-            if (clue % 10 == 3 ){
-                clue /= 10; 
-            }	
-            else
-                return false;
-            
-        }
-        return true;
+		return (clue == maxClue(size));
     }
 
 	/**
@@ -294,3 +280,4 @@ public class Ipurdle_Nexus
 		guessInput.close();
     }
 }
+"\
