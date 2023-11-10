@@ -250,18 +250,24 @@ public class Ipurdle_Nexus
 		int maxAttempts = 6;
 		int size = 5;
 		int i = 0;
+		int dificulty = 3;
 		int clue = minClue(size);
 		if (args.length > 0)
 		size = Integer.parseInt(args[0]);
 		if (args.length > 1)
 		maxAttempts = Integer.parseInt(args[1]);
+		if (args.length > 2)
+			dificulty = Integer.parseInt(args[2]);
 		printRules(size, maxAttempts);
 		DictionaryIP gameWordsDictionary = new DictionaryIP(size);
 		DictionaryIP puzzlesDictionary = new DictionaryIP(size);
 		Scanner guessInput = new Scanner(System.in);
-		showDict(puzzlesDictionary);// para retirar!!|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+		if (dificulty == 2)
+			showDict(puzzlesDictionary);
         while ( i < maxAttempts && !isMaxClue(clue, size))
         {
+			if (dificulty == 1)
+				showDict(puzzlesDictionary);
             System.out.print("Palavra a jogar? ");
             String guess = guessInput.nextLine();
 			guess = guess.toUpperCase();
