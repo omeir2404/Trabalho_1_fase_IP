@@ -53,6 +53,6 @@ public class test {
 	public static void main(String[] args) {
 		testClueForGuessAndWord();
 		System.out.println(clueForGuessAndWord("abacabi", "abacaxi"));
-        // segundo b tem de ser 1??
+        // segundo b tem de ser 1?? || logo a pista tem de ser 3333313
 	}
 }

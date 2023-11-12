@@ -146,6 +146,9 @@ public class Ipurdle
 	 * @param letter
 	 * @param word
 	 * @param stop
+	 * @requires {@code word != NULL}
+	 * @requires {@code stop} <= {@code word.length()}
+	 * @requires {@code letter != NULL}
 	 * @ensures {@code countOccurrences} is the number of occurrences of {@code letter} in {@code word} up to the position {@code stop} of word
 	 * @return
 	 */
@@ -154,7 +157,7 @@ public class Ipurdle
 		int count = 0;
 		for(int i = 0; i < stop; i++)
 		{
-			if (word.charAt(i) == letter)
+			if (word.charAt(i) == letter)// sempre que a letra do word de indice i for igual a letra adiciona 1 ao count
 				count++;
 		}
 		return (count);
@@ -172,9 +175,9 @@ public class Ipurdle
 		int clue = 0;
 		for(int count = 0; count < guess.length(); count++)
 		{
-			clue *= 10;
+			clue *= 10;//como o clue é um inteiro, para adicionar um digito no final do clue temos de multiplicar por 10
 			if (guess.charAt(count) == word.charAt(count))
-				clue += 3;//se a letra de indice count da palavra for igual a letra de indice count da palavra secreta adiciona 3 ao clue
+				clue += 3;//se a letra de indice count do guess for igual a letra de indice count do word adiciona 3 ao clue
 			else if (countOccurrences(guess.charAt(count), word, word.length()) > 0)// se a letra de indice count da palavra esta no word
 			{
 				if (countOccurrences(guess.charAt(count), word, word.length()) == 1) // se a letra de indice count da palavra so aparece uma vez no word
