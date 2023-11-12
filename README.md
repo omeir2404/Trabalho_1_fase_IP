@@ -11,11 +11,11 @@ make clean (limpar os .classes extra)
 
 make test (testar com os testes fornecidos)
 
-java <tamanho> <size> <dificuldade> (correr o jogo com defenicoes custom, nao se esqueca de compilar)
+java [tamanho](opcional) [size](opcional) [dificuldade](opcional) (correr o jogo com defenicoes custom, nao se esqueca de compilar)
 
 javac Ipurdle.java (alternativa para compilar)
 
-git clone https://github.com/omeir2404/Trabalho_1_fase_IP.git <nome com que queres guardar(opcional)>
+git clone https://github.com/omeir2404/Trabalho_1_fase_IP.git <nome com que queres guardar>(opcional)
 
 git add * (adicionar todos os ficheiros para staging antes de um commit (colocar no palco))
 
