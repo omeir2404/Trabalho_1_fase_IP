@@ -1,36 +1,58 @@
 
 public class test {
+
+	public static int countOccurrences(char letter, String word, int stop)
+	{
+		int count = 0;
+		for(int i = 0; i < stop; i++)
+		{
+			if (word.charAt(i) == letter)
+				count++;
+		}
+		return (count);
+	}
+
     public static int clueForGuessAndWord(String guess, String word)
 	{
 		int clue = 0;
 		for(int count = 0; count < guess.length(); count++)
 		{
+			clue *= 10;
 			if (guess.charAt(count) == word.charAt(count))
-				clue = (clue * 10) + 3;//se a letra de indice count da palavra for igual a letra de indice count da palavra secreta adiciona 3 ao clue
-			else if (word.contains(String.valueOf(guess.charAt(count))))// verifica se a word contem a letra de indice count do guess
+				clue += 3;//se a letra de indice count da palavra for igual a letra de indice count da palavra secreta adiciona 3 ao clue
+			else if (countOccurrences(guess.charAt(count), word, word.length()) > 0)
 			{
-				boolean found = false;
-				int whileCount = 0;
-				while(whileCount < count && !found)
-				{//procura a letra e verifica que se encontra antes da letra de indice count do guess
-					if (guess.charAt(whileCount) == guess.charAt(count) && guess.charAt(whileCount) != word.charAt(whileCount))
-					{//compara cada letra antes e verifica tambem se a pista da letra foi 3(se estava no sitio certo) 
-						clue = (clue * 10) + 1;
-						found = true;
-					}
-					whileCount++;
+				if (countOccurrences(guess.charAt(count), word, word.length()) == 1)
+				{
+					if (countOccurrences(guess.charAt(count), guess, count) > 0)
+						clue += 1; // if the letter only occurs once in both word and guess, add 2 to clue
+					else
+						clue += 2; // if the letter only occurs once in both word and guess, add 2 to clue
 				}
-				if (!found)
-					clue = (clue * 10) + 2;
+				else
+					clue += 2;
 			}
 			else
-				clue = (clue * 10) + 1;
+				clue += 1;
 		}
 		return (clue);
 	}
-    public static void main(String[] args)
-    {
-        System.out.println(clueForGuessAndWord("abacabi", "abacaxi"));
+	public static void testClueForGuessAndWord() {
+		System.out.println(clueForGuessAndWord("aaaab", "aaaaa"));
+		assert clueForGuessAndWord("abcde", "abcde") == 33333 : "Test case 2 failed";
+		assert clueForGuessAndWord("abcde", "edbca") == 22222 : "Test case 3 failed";
+		assert clueForGuessAndWord("abcde", "fghij") == 11111 : "Test case 4 failed";
+		assert clueForGuessAndWord("aaaab", "aaaaa") == 33331 : "Test case 5 failed";
+		assert clueForGuessAndWord("vmaam", "bamaa") == 12231 : "Test case 6 failed";
+		assert clueForGuessAndWord("abhda", "dcbae") == 22121 : "Test case 7 failed";
+		assert clueForGuessAndWord("abmcm", "emcda") == 21221 : "Test case 8 failed";
+		assert clueForGuessAndWord("mbcde", "eabcd") == 12222 : "Test case 9 failed";
+		System.out.println("All test cases passed");
+	}
+	
+	public static void main(String[] args) {
+		testClueForGuessAndWord();
+		System.out.println(clueForGuessAndWord("abacabi", "abacaxi"));
         // segundo b tem de ser 1??
-    }
+	}
 }

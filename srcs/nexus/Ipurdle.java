@@ -142,6 +142,25 @@ public class Ipurdle
 	}
 
 	/**
+	 * 
+	 * @param letter
+	 * @param word
+	 * @param stop
+	 * @ensures {@code countOccurrences} is the number of occurrences of {@code letter} in {@code word} up to the position {@code stop} of word
+	 * @return
+	 */
+	public static int countOccurrences(char letter, String word, int stop)
+	{
+		int count = 0;
+		for(int i = 0; i < stop; i++)
+		{
+			if (word.charAt(i) == letter)
+				count++;
+		}
+		return (count);
+	}
+
+	/**
 	 * @param {@code guess}
 	 * @param {@code word}
 	 * @requires {@code guess} and {@code word} have the same length
@@ -153,26 +172,23 @@ public class Ipurdle
 		int clue = 0;
 		for(int count = 0; count < guess.length(); count++)
 		{
+			clue *= 10;
 			if (guess.charAt(count) == word.charAt(count))
-				clue = (clue * 10) + 3;//se a letra de indice count da palavra for igual a letra de indice count da palavra secreta adiciona 3 ao clue
-			else if (word.contains(String.valueOf(guess.charAt(count))))// verifica se a word contem a letra de indice count do guess
+				clue += 3;//se a letra de indice count da palavra for igual a letra de indice count da palavra secreta adiciona 3 ao clue
+			else if (countOccurrences(guess.charAt(count), word, word.length()) > 0)// se a letra de indice count da palavra esta no word
 			{
-				boolean found = false;
-				int whileCount = 0;
-				while(whileCount < count && !found)
-				{//procura a letra e verifica que se encontra antes da letra de indice count do guess
-					if (guess.charAt(whileCount) == guess.charAt(count) && guess.charAt(whileCount) != word.charAt(whileCount))
-					{//compara cada letra antes e verifica tambem se a pista da letra foi 3(se estava no sitio certo que assim é para ser ignorado) 
-						clue = (clue * 10) + 1;
-						found = true;
-					}
-					whileCount++;
+				if (countOccurrences(guess.charAt(count), word, word.length()) == 1) // se a letra de indice count da palavra so aparece uma vez no word
+				{
+					if (countOccurrences(guess.charAt(count), guess, count) > 0)
+						clue += 1; // se foi encontrado antes (na posicao certa ou nao) adiciona 1 ao clue
+					else
+						clue += 2; //se for a primeira vez que ocorre adiciona 2 ao clue
 				}
-				if (!found)// se nao encontrou a letra antes da letra de indice count do guess adiciona 2 ao clue
-					clue = (clue * 10) + 2;
+				else
+					clue += 2;// se houver mais do que uma letra igual no word adiciona 2 ao clue
 			}
-			else// ultimo caso, se a letra de indice count do guess nao estiver no word adiciona 1 ao clue
-				clue = (clue * 10) + 1;
+			else
+				clue += 1;// ultimo caso adiciona 1 ao clue
 		}
 		return (clue);
 	}
@@ -296,7 +312,10 @@ public class Ipurdle
             if (guess.length() == size)//verifica se a palavra tem o tamanho certo
 			{
 				if (!gameWordsDictionary.isValid(guess))// verifica se a palavra esta no dicionario inicial (o que a torna válida)
+				{
+					i--;// diminuir para depois aumentar e nao contar como tentativa
 					System.out.println("Palavra Invalida. Nao existe no dicionario.");
+				}
 				else
 				{
 					clue = playGuess(puzzlesDictionary, guess);//faz a jogada e guarda a melhor pista (que corresponde a todas as palavras restantes)
@@ -311,7 +330,10 @@ public class Ipurdle
 				}
 			}
 			else
+			{
+				i--;// diminuir para depois aumentar e nao contar como tentativa
 				System.out.println("Palavra Invalida. Tamanho errado.");
+			}
 			i++;
 		}
 		System.out.println("Perdeste! :( boa sorte para a proxima :)");
