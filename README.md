@@ -11,7 +11,7 @@ make clean (limpar os .classes extra)
 
 make test (testar com os testes fornecidos)
 
-java [tamanho](opcional) [size](opcional) [dificuldade](opcional) (correr o jogo com defenicoes custom, nao se esqueca de compilar)
+java {tamanho}(opcional) {size}(opcional) {dificuldade}(opcional) (correr o jogo com defenicoes custom, nao se esqueca de compilar)
 
 javac Ipurdle.java (alternativa para compilar)
 
