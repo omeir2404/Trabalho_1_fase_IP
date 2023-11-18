@@ -19,7 +19,7 @@ public class Ipurdle
 	 * @ensures {@code dictionary} is printed to the screen
 	 * 
 	 */
-	public static void showDict(DictionaryIP dictionary)
+	public static void showDictionary(DictionaryIP dictionary)
 	{
 		System.out.println();
 		for (int i = 0; i < dictionary.lenght(); i++)
@@ -271,14 +271,14 @@ public class Ipurdle
 	public static void printRules(int size, int maxAttempts, int dificulty)
 	{
 		System.out.println("Bem vindo ao jogo Ipurdle!");
-		System.out.print("letras que não estão na palavra ");
+		System.out.print("Letras que não estão na palavra ");
 		printClue("red", 111);
-		System.out.print("letras no sitio errado ");
+		System.out.print("Letras no sitio errado ");
 		printClue("yellow", 222222);
-		System.out.print("letras no sitio certo ");
+		System.out.print("LJetras no sitio certo ");
 		printClue("green", 33333);
 		System.out.println("Neste jogo as palavras têm tamanho "  + size +". O dicionário tem apenas palavras em inglês relacionadas com IP.");
-		System.out.println("Tens "+ maxAttempts + " tentavias para advinhar a palavra. O nivel da dificuldade do jogo é: " + dificulty +"Boa sorte!");
+		System.out.println("Tens "+ maxAttempts + " tentavias para advinhar a palavra. O nivel da dificuldade do jogo é: " + dificulty + ". Boa sorte!");
 	}
 	/**
 	 * @param args
@@ -294,21 +294,21 @@ public class Ipurdle
 		int dificulty = 3;
 		int clue = minClue(size);
 		if (args.length > 0)//verifica se foi dado um tamanho diferente do default
-		size = Integer.parseInt(args[0]);
+			size = Integer.parseInt(args[0]);
 		if (args.length > 1)//verifica se foi dado um numero de tentativas diferente do default
-		maxAttempts = Integer.parseInt(args[1]);
+			maxAttempts = Integer.parseInt(args[1]);
 		if (args.length > 2)// verifica se foi dado uma dificuldade diferente do default
 			dificulty = Integer.parseInt(args[2]);
 		printRules(size, maxAttempts, dificulty);//imprime as informacoes do jogo
-		DictionaryIP gameWordsDictionary = new DictionaryIP(size);
-		DictionaryIP puzzlesDictionary = new DictionaryIP(size);
+		DictionaryIP gameWordsDictionary = new DictionaryIP(size);//as palavras TODAS que sao validas (nunca muda)
+		DictionaryIP puzzlesDictionary = new DictionaryIP(size);//(palavras que ainda podem ser a certa)
 		Scanner guessInput = new Scanner(System.in);
 		if (dificulty == 2)
-			showDict(puzzlesDictionary);// dificuldade 2 mostra o dicionario so uma vez no inicio do jogo
+			showDictionary(puzzlesDictionary);// dificuldade 2 mostra o dicionario so uma vez no inicio do jogo
         while (i < maxAttempts && !isMaxClue(clue, size))
         {
 			if (dificulty == 1)// dificuldade 1 mostra o dicionario a cada tentativa com as alteracoes feitas ao longo dad tentativas anteriores
-				showDict(puzzlesDictionary);
+				showDictionary(puzzlesDictionary);
             System.out.print("Palavra a jogar? ");// pede a palavra
             String guess = guessInput.nextLine();
 			guess = guess.toUpperCase();// coloca a palavra em maiusculas
@@ -317,7 +317,7 @@ public class Ipurdle
 				if (!gameWordsDictionary.isValid(guess))// verifica se a palavra esta no dicionario inicial (o que a torna válida)
 				{
 					i--;// diminuir para depois aumentar e nao contar como tentativa
-					System.out.println("Palavra Invalida. Nao existe no dicionario.");
+					System.out.println("Palavra Inválida. Nao existe no dicionário.");
 				}
 				else
 				{
@@ -326,7 +326,7 @@ public class Ipurdle
 					printClue(guess, clue);
 					if (isMaxClue(clue, size))// verifica se a pista é maxima e se sim acaba o jogo com sucesso
 					{
-						System.out.println("Parabens, encontraste a palavra secreta!");
+						System.out.println("Parabéns, encontraste a palavra secreta!");
 						guessInput.close();
 						return ;
 					}
@@ -335,11 +335,11 @@ public class Ipurdle
 			else
 			{
 				i--;// diminuir para depois aumentar e nao contar como tentativa
-				System.out.println("Palavra Invalida. Tamanho errado.");
+				System.out.println("Palavra Inválida. Tamanho errado.");
 			}
 			i++;
 		}
-		System.out.println("Perdeste! :( boa sorte para a proxima :)");
+		System.out.println("GameOver! :(\nBoa sorte para a proxima :)");
 		guessInput.close();
     }
 }
